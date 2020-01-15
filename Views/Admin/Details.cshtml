@@ -1,0 +1,101 @@
+@model EManager3User
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <h4>Personal Info</h4>
+    <div>
+        <a asp-controller="Admin" asp-action="Index">Back to List</a> 
+        
+    </div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.MaritalStatus)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.MaritalStatus)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.NumberOfChildren)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.NumberOfChildren)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.EmploymentDate)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.EmploymentDate)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.HighestEducationQualification)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.HighestEducationQualification)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.School)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.School)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ServiceYear)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ServiceYear)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CompanyPosition)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CompanyPosition)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.LastPromotionDate)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.LastPromotionDate)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.YearlySalary)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.YearlySalary)
+        </dd>
+    </dl>
+</div>

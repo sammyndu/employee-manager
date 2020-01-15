@@ -1,0 +1,27 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<EManager3User> SignInManager
+@inject UserManager<EManager3User> UserManager
+
+@* <ul class="navbar-nav"> 
+@{
+    EManager3User user = UserManager.GetUserAsync(User);
+} *@
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (this.User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a  class="nav-link text-dark" asp-controller="Admin" asp-action="Index" title="Admin">Dashboard</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Index">Profile</a>
+        </li>
+    }
+}
+else{
+    
+}
+@* </ul> *@
