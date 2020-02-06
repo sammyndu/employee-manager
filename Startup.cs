@@ -31,9 +31,10 @@ namespace EManager3
         public void ConfigureServices(IServiceCollection services)
         {
             if (Environment.IsDevelopment()){
+                // services.AddDbContext<ApplicationDbContext>(options =>
+                // options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
                 services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
             }
             else{
                 services.AddDbContext<ApplicationDbContext>(options =>

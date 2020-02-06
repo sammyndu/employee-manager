@@ -20,25 +20,31 @@ namespace EManager3.Controllers
         private  UserManager<EManager3User> userManager;
         private IPasswordHasher<EManager3User> passwordHasher;
         private SignInManager<EManager3User> signInManager;
+        private readonly ApplicationDbContext _context;
 
         public EmployeeController(
             UserManager<EManager3User> usrMgr,
             IPasswordHasher<EManager3User> passwordHash,
-            SignInManager<EManager3User> signinMgr)
+            SignInManager<EManager3User> signinMgr,
+            ApplicationDbContext context)
         {
             userManager = usrMgr;
             passwordHasher = passwordHash;
             signInManager = signinMgr;
+            _context = context;
         }
         public async Task<IActionResult> Index()
         {            
             var user = await userManager.GetUserAsync(User);
+            user =  await userManager.Users.Include(x => x.Subordinates).Where(x => x.Id == user.Id).SingleOrDefaultAsync();
             return View(user);
         }
 
-        public async Task<IActionResult> Update(string id)
+        public ViewResult AccessDenied() => View();
+
+        public async Task<IActionResult> Update()
         {
-            EManager3User user = await userManager.FindByIdAsync(id);
+            EManager3User user = await userManager.GetUserAsync(User);
             if (user != null)
             {
                 return View(user);
@@ -51,10 +57,9 @@ namespace EManager3.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Update(EManager3User updateduser)
+        public async Task<IActionResult> Update(UserUpdate updateduser)
         {
-
-            EManager3User user = await userManager.FindByIdAsync(updateduser.Id);
+            EManager3User user = await userManager.GetUserAsync(User);
             if (user != null)
             {
                 user.Email = updateduser.Email;
@@ -84,9 +89,9 @@ namespace EManager3.Controllers
             
         }
 
-        public string oldpassword {get; set;}
-        public string newpassword {get; set;}
-        public string confirmpassword {get; set;}
+        // public string oldpassword {get; set;}
+        // public string newpassword {get; set;}
+        // public string confirmpassword {get; set;}
 
         public IActionResult ChangePassword()
         {            

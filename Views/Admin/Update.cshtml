@@ -1,9 +1,9 @@
-@model EManager3User
+@model SubordinateEdit
+@using System.Globalization
+
 @{
     ViewData["Title"] = "Change Account Info";
 }
-
-<h1>@ViewData["Title"]</h1>
 
 <div class="row">
     <div class="col-md-4">
@@ -11,66 +11,66 @@
             <h4>Update account.</h4>
             <div class="form-group">
                 <p>
-                    <a asp-contoller="Admin" asp-action="ChangePassword" asp-route-id="@Model.Id">Change password</a>
+                    <a asp-contoller="Admin" asp-action="Index">Back to List</a> | <a asp-contoller="Admin" asp-action="ChangePassword" asp-route-id="@Model.User.Id">Change password</a>
                 </p>
             </div>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="User.Email"></label>
+                <input asp-for="User.Email" name="Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FirstName"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <label asp-for="User.FirstName"></label>
+                <input asp-for="User.FirstName" name="FirstName" class="form-control" />
+                <span asp-validation-for="User.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastName"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+                <label asp-for="User.LastName"></label>
+                <input asp-for="User.LastName" name="LastName" class="form-control" />
+                <span asp-validation-for="User.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Sex"></label>
-                <select asp-for="Sex" class="form-control">
+                <label asp-for="User.Sex"></label>
+                <select asp-for="User.Sex" name="Sex" class="form-control">
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
-                <span asp-validation-for="Sex" class="text-danger"></span>
+                <span asp-validation-for="User.Sex" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DOB"></label>
-                <input asp-for="DOB" class="form-control" />
-                <span asp-validation-for="DOB" class="text-danger"></span>
+                <label asp-for="User.DOB"></label>
+                <input asp-for="User.DOB" name="DOB" title="mm/dd/yyyy" class="form-control" />
+                <span asp-validation-for="User.DOB" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MaritalStatus"></label>
-                <select asp-for="MaritalStatus" class="form-control">
+                <label asp-for="User.MaritalStatus"></label>
+                <select asp-for="User.MaritalStatus" name="MaritalStatus" class="form-control">
                     <option value="Single">Single</option>
                     <option value="Married">Married</option>
                     <option value="Divorced">Divorced</option>
                 </select>
-                <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+                <span asp-validation-for="User.MaritalStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NumberOfChildren"></label>
-                <input asp-for="NumberOfChildren" class="form-control" />
-                <span asp-validation-for="NumberOfChildren" class="text-danger"></span>
+                <label asp-for="User.NumberOfChildren"></label>
+                <input asp-for="User.NumberOfChildren" name="NumberOfChildren" class="form-control" />
+                <span asp-validation-for="User.NumberOfChildren" class="text-danger"></span>
             </div>
             <div class="checkbox">
-                <input asp-for="isActive" value="true" />
-                <label asp-for="isActive"></label>
-                <span asp-validation-for="isActive" class="text-danger"></span>
+                <input asp-for="User.isActive" name="isActive" value="true" />
+                <label asp-for="User.isActive"></label>
+                <span asp-validation-for="User.isActive" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmploymentDate"></label>
-                <input asp-for="EmploymentDate" class="form-control" />
-                <span asp-validation-for="EmploymentDate" class="text-danger"></span>
+                <label asp-for="User.EmploymentDate"></label>
+                <input asp-for="User.EmploymentDate" name="EmploymentDate" title="mm/dd/yyyy" class="form-control" />
+                <span asp-validation-for="User.EmploymentDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HighestEducationQualification"></label>
-                <select asp-for="HighestEducationQualification" class="form-control">
+                <label asp-for="User.HighestEducationQualification"></label>
+                <select asp-for="User.HighestEducationQualification" name="HighestEducationQualification" class="form-control">
                     <option value="" class="text-muted">Select Qualification</option>
                     <option value="Primary School">Primary School</option>
                     <option value="WASSCE">WASSCE</option>
@@ -78,46 +78,68 @@
                     <option value="HND">HND</option>
                     <option value="Bachelor">Bachelor</option>
                     <option value="PGD">PGD</option>
-                    <option value="MASTERS">MASTERS</option>
-                    <option value="PH.D">PH.D</option>
+                    <option value="MASTERS">Masters</option>
+                    <option value="PH.D">PHD</option>
                 </select>
-                <span asp-validation-for="HighestEducationQualification" class="text-danger"></span>
+                <span asp-validation-for="User.HighestEducationQualification" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="School"></label>
-                <input asp-for="School" class="form-control" />
-                <span asp-validation-for="School" class="text-danger"></span>
+                <label asp-for="User.School"></label>
+                <input asp-for="User.School" name="School" class="form-control" />
+                <span asp-validation-for="User.School" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ServiceYear"></label>
-                <input asp-for="ServiceYear" class="form-control" />
-                <span asp-validation-for="ServiceYear" class="text-danger"></span>
+                <label asp-for="User.ServiceYear"></label>
+                <input asp-for="User.ServiceYear" name="ServiceYear" title="mm/dd/yyyy" class="form-control" />
+                <span asp-validation-for="User.ServiceYear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CompanyPosition"></label>
-                <input asp-for="CompanyPosition" class="form-control" />
-                <span asp-validation-for="CompanyPosition" class="text-danger"></span>
+                <label asp-for="User.CompanyPosition"></label>
+                <input asp-for="User.CompanyPosition" name="CompanyPosition" class="form-control" />
+                <span asp-validation-for="User.CompanyPosition" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastPromotionDate"></label>
-                <input asp-for="LastPromotionDate" class="form-control" />
-                <span asp-validation-for="LastPromotionDate" class="text-danger"></span>
+                <label asp-for="User.LastPromotionDate"></label>
+                <input asp-for="User.LastPromotionDate" name="LastPromotionDate" title="mm/dd/yyyy" class="form-control" />
+                <span asp-validation-for="User.LastPromotionDate" name="LastPromotionDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="YearlySalary"></label>
-                <input asp-for="YearlySalary" class="form-control" />
-                <span asp-validation-for="YearlySalary" class="text-danger"></span>
+                @{ var salary = @Model.User.YearlySalary.ToString("C", new CultureInfo("en-NG"));}
+                <label asp-for="User.YearlySalary"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic">&#8358;</span>
+                    </div>
+                    <input asp-for="User.YearlySalary" name="YearlySalary" aria-describedby="basic" class="form-control" />
+                </div>
+                <span asp-validation-for="User.YearlySalary" class="text-danger"></span>
             </div>
-            @* <div class="form-group" >
+            <div class="form-group" >
                 <label asp-for="Users"></label>
-                <select asp-for="Users" class="" multiple>
+                <select id="custom-headers" name="AddIds" class="" multiple>
                     @foreach (EManager3User user in Model.Users)
                     {
-                        <option value="@user.Id">@user.UserName</option>
+                        var seen= false;
+                        if (user.Id == Model.User.Id){
+                            continue;
+                        }
+                        foreach (var sub in Model.Members){
+                            if (user.Id == Convert.ToString(sub.SubordinateId)){
+                                <option selected="selected" value="@user.Id">@user.UserName</option>
+                                seen = true;
+                                break;
+                            }
+                        }
+                        if (seen){
+                            continue;
+                        }
+                        else{
+                            <option value="@user.Id">@user.UserName</option>
+                        }
                     } 
                 </select>
                 <span asp-validation-for="User.Sex" class="text-danger"></span>
-            </div> *@
+            </div>
             <button type="submit" class="btn btn-primary">Update</button>
             
         </form>
@@ -125,4 +147,7 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    @* <script>
+        
+    </script> *@
 }

@@ -19,13 +19,16 @@ namespace EManager3.Controllers
     {
         private  UserManager<EManager3User> userManager;
         private IPasswordHasher<EManager3User> passwordHasher;
+        private readonly ApplicationDbContext _context;
 
         public AdminController(
             UserManager<EManager3User> usrMgr,
-            IPasswordHasher<EManager3User> passwordHash)
+            IPasswordHasher<EManager3User> passwordHash,
+            ApplicationDbContext context)
         {
             userManager = usrMgr;
             passwordHasher = passwordHash;
+            _context = context;
         }
         
         public List<EManager3User> users { get; set; }
@@ -39,23 +42,32 @@ namespace EManager3.Controllers
 
         public async Task<IActionResult> Details(string id)
         {
-            EManager3User user = await userManager.FindByIdAsync(id);
-            return View(user);
+            EManager3User user = await userManager.Users.Include(x => x.Subordinates).Where(x => x.Id == id).SingleOrDefaultAsync();
+            if (user != null)
+                return View(user);
+            else
+                return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Update(string id)
         {
-            // IEnumerable<EManager3User> users = new List<EManager3User>();
-            EManager3User user = await userManager.FindByIdAsync(id);
+            List<EManager3User> users = new List<EManager3User>();
+            List<Subordinates> members = new List<Subordinates>();
+            EManager3User user = await userManager.Users.Include(x => x.Subordinates).Where(x => x.Id == id).SingleOrDefaultAsync();
+            members = _context.Subordinates.Where(x => x.UserId == id).ToList();
             
-            // foreach (EManager3User u in userManager.Users)
-            // {
-            //     users.Add(u);
-            // }
+            foreach (EManager3User u in userManager.Users)
+            {
+                users.Add(u);
+            }
             if (user != null)
             {
                 // return View(user);
-                return View(user);
+                return View(new SubordinateEdit{
+                    Users = users,
+                    User=user,
+                    Members = members
+                });
             }
             else
             {
@@ -65,12 +77,7 @@ namespace EManager3.Controllers
 
 
         [HttpPost]
-        // public async Task<IActionResult> Update(
-        //     string id, string email, string FirstName,
-        //     string LastName, string Sex, DateTime DOB, string MaritalStatus,
-        //     int NumberOfChildren, bool isActive)
-        // {
-        public async Task<IActionResult> Update(EManager3User updateduser)
+        public async Task<IActionResult> Update(SubordinateMod updateduser)
         {
 
             EManager3User user = await userManager.FindByIdAsync(updateduser.Id);
@@ -91,14 +98,32 @@ namespace EManager3.Controllers
                 user.ServiceYear = updateduser.ServiceYear;
                 user.CompanyPosition = updateduser.CompanyPosition;
                 user.LastPromotionDate = updateduser.LastPromotionDate;
-                user.YearlySalary = updateduser.YearlySalary;
+                user.YearlySalary = Convert.ToInt32(updateduser.YearlySalary);
 
                 if (!string.IsNullOrEmpty(updateduser.Email) && !string.IsNullOrEmpty(updateduser.FirstName) && !string.IsNullOrEmpty(updateduser.LastName)
                 && !string.IsNullOrEmpty(updateduser.Sex) && !string.IsNullOrEmpty(updateduser.MaritalStatus))
                 {
                     IdentityResult result = await userManager.UpdateAsync(user);
                     if (result.Succeeded)
-                        return RedirectToAction("Index");
+                        {
+                            var result2 = _context.Subordinates.Where(x => x.UserId == updateduser.Id).ToList();
+                            foreach (var sub in result2){
+                                _context.Subordinates.Remove(sub);
+                            }
+                            await _context.SaveChangesAsync();
+                            
+                            foreach (var newsub in updateduser.AddIds ?? new string[] { }){
+                                var subs = new Subordinates{
+                                    UserId=updateduser.Id,
+                                    SubordinateId=newsub
+                                };
+                                _context.Subordinates.Add(subs);
+                            }
+
+                            await _context.SaveChangesAsync();
+
+                            return RedirectToAction("Index");
+                        }
                     else{
                         Errors(result);
                     }
@@ -166,6 +191,21 @@ namespace EManager3.Controllers
                 ModelState.AddModelError("", "No User Found");
             return View("Index", userManager.Users);
             
+        }
+
+        public IActionResult Search(string Active)
+        {
+            if (Active == "yes"){
+                var users = userManager.Users.Where(x => x.isActive==true).ToList();
+                return View("Index", users);
+            }
+            else if(Active == "no"){
+                var users = userManager.Users.Where(x => x.isActive==false).ToList();
+                return View("Index", users);
+            }
+            else{
+                return RedirectToAction("Index");
+            }
         }
 
         private void Errors(IdentityResult result)

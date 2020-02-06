@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using EManager3.Models;
 
 namespace EManager3.Areas.Identity.Data
 {
@@ -51,7 +53,7 @@ namespace EManager3.Areas.Identity.Data
         [PersonalData]
         [DataType(DataType.Date)]
         [Display(Name="Employment Date")]
-        public DateTime EmploymentDate { get; set; }
+        public DateTime? EmploymentDate { get; set; }
 
         [PersonalData]
         [DataType(DataType.Text)]
@@ -64,7 +66,7 @@ namespace EManager3.Areas.Identity.Data
         [PersonalData]
         [DataType(DataType.Date)]
         [Display(Name="Service Year")]
-        public DateTime ServiceYear { get; set; }
+        public DateTime? ServiceYear { get; set; }
 
         [PersonalData]
         [Display(Name="Company Position")]
@@ -73,7 +75,7 @@ namespace EManager3.Areas.Identity.Data
         [PersonalData]
         [DataType(DataType.Date)]
         [Display(Name="Last Promotion Date")]
-        public DateTime LastPromotionDate { get; set; }
+        public DateTime? LastPromotionDate { get; set; }
 
         [PersonalData]
         [Display(Name="Yearly Salary")]
@@ -84,5 +86,9 @@ namespace EManager3.Areas.Identity.Data
         [StringLength(11, ErrorMessage = "Phone number must be 11 digits long.", MinimumLength = 11)]
         [Display(Name="Phone Number")]
         public override string PhoneNumber { get; set; }
+
+        [PersonalData]
+        [Display(Name="Direct Subordinate")]
+        public ICollection<Subordinates> Subordinates { get; set; }
     }
 }

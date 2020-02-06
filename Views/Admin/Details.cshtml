@@ -1,4 +1,6 @@
 @model EManager3User
+@inject UserManager<EManager3User> UserManager
+@using System.Globalization
 
 @{
     ViewData["Title"] = "Details";
@@ -8,7 +10,7 @@
 <div>
     <h4>Personal Info</h4>
     <div>
-        <a asp-controller="Admin" asp-action="Index">Back to List</a> 
+        <a asp-controller="Admin" asp-action="Index">Back to List</a> | <a asp-action="Update" asp-route-id="@Model.Id">Update</a>
         
     </div>
     <hr />
@@ -41,7 +43,7 @@
             @Html.DisplayNameFor(model => model.DOB)
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.DOB)
+            @Model.DOB.ToString("dd MMMM yyyy")
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.MaritalStatus)
@@ -56,10 +58,18 @@
             @Html.DisplayFor(model => model.NumberOfChildren)
         </dd>
         <dt class="col-sm-3">
+            
             @Html.DisplayNameFor(model => model.EmploymentDate)
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.EmploymentDate)
+            @{
+                if (Model.EmploymentDate.HasValue){
+                    @Model.EmploymentDate.Value.ToString("dd MMMM yyyy")
+                }
+                else{}
+            }
+            
+            @* @Html.DisplayFor(model => model.EmploymentDate.ToString("dddd MMMM yyyy")) *@
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.HighestEducationQualification)
@@ -77,7 +87,13 @@
             @Html.DisplayNameFor(model => model.ServiceYear)
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.ServiceYear)
+            @{
+                if (Model.ServiceYear.HasValue){
+                    @Model.ServiceYear.Value.ToString("dd MMMM yyyy")
+                }
+                else{}
+            }
+            @* @Model.ServiceYear.ToString("dd MMMM yyyy") *@
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.CompanyPosition)
@@ -89,13 +105,42 @@
             @Html.DisplayNameFor(model => model.LastPromotionDate)
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.LastPromotionDate)
+            @{
+                if (Model.LastPromotionDate.HasValue){
+                    @Model.LastPromotionDate.Value.ToString("dd MMMM yyyy")
+                }
+                else{}
+            }
+            @* @Model.LastPromotionDate.ToString("dd MMMM yyyy") *@
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.YearlySalary)
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.YearlySalary)
+            @Model.YearlySalary.ToString("C", new CultureInfo("en-NG"))
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Subordinates)
+        </dt>
+        <dd class="col-sm-9">
+            <div class="dropdown">
+                <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View</button>
+                <div class="dropdown-menu" aria-labelledby="dropdownmenu">
+                @{if (Model.Subordinates.Count == 0){
+                    <Span></span>
+                }
+                else{
+                    @foreach(var mod in Model.Subordinates){
+                        if (mod.SubordinateId != null){
+                            var user = await UserManager.FindByIdAsync(mod.SubordinateId);
+                            if (user != null)
+                            {<a class="dropdown-item" href="" >@user.FirstName @user.LastName (@user.Email)</a>}
+                        }
+                    }
+                }
+                }                    
+                </div>
+            </div>
         </dd>
     </dl>
 </div>

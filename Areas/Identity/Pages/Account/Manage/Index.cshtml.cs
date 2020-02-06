@@ -67,7 +67,7 @@ namespace EManager3.Areas.Identity.Pages.Account.Manage
             
             [DataType(DataType.Date)]
             [Display(Name="Employment Date")]
-            public DateTime EmploymentDate { get; set; }
+            public DateTime? EmploymentDate { get; set; }
             
             [DataType(DataType.Text)]
             [Display(Name="Highest Educational Qualification")]
@@ -79,7 +79,7 @@ namespace EManager3.Areas.Identity.Pages.Account.Manage
             
             [DataType(DataType.Date)]
             [Display(Name="Service Year")]
-            public DateTime ServiceYear { get; set; }
+            public DateTime? ServiceYear { get; set; }
             
             [DataType(DataType.Text)]
             [Display(Name="Company Position")]
@@ -87,7 +87,7 @@ namespace EManager3.Areas.Identity.Pages.Account.Manage
 
             [DataType(DataType.Date)]
             [Display(Name="Last Promotion Date")]
-            public DateTime LastPromotionDate { get; set; }
+            public DateTime? LastPromotionDate { get; set; }
 
             [Display(Name="Yearly Salary")]
             public int YearlySalary { get; set; }
