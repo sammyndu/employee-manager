@@ -6,15 +6,13 @@
     ViewData["Title"] = "Registered Users";
 }
 <div class="col-md-3 offset-md-9">
-    <form method="post" asp-action="Search" class="form-inline">
+    <form id="searchform" method="post" asp-action="Search" class="form-inline">
     <p>
         <select name="Active" class="form-control">
             <option value="">All</option>
             <option value="yes">Actived Users</option>
             <option value="no">Unactived Users</option>
         </select>
-        
-        <input type="submit" value="Search" class="btn btn-primary" />
     </p>
 </form>
 </div>
@@ -56,13 +54,7 @@
             <td>
             <button type="button" class="btn btn-sm btn-danger" data-email="@user.Email" data-id="@user.Id" data-toggle="modal" data-target="#exampleModalCenter">
             Delete
-            </button>
-                @* <form asp-action="Delete" asp-route-id="@user.Id" method="post">
-                    <button type="submit" class="btn btn-sm btn-danger">
-                        Delete
-                    </button>
-                </form> *@
-            
+            </button>            
             </td>
         </tr>
     }

@@ -43,7 +43,12 @@
             @Html.DisplayNameFor(model => model.DOB)
         </dt>
         <dd class="col-sm-9">
-            @Model.DOB.ToString("dd MMMM yyyy")
+            @{
+                if (Model.DOB.HasValue &&  Model.DOB.Value == DateTime.MinValue){
+                    @Model.DOB.Value.ToString("dd MMMM yyyy")
+                }
+    
+            }
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.MaritalStatus)
@@ -63,13 +68,11 @@
         </dt>
         <dd class="col-sm-9">
             @{
-                if (Model.EmploymentDate.HasValue){
+                if (Model.EmploymentDate.HasValue &&  Model.EmploymentDate.Value == DateTime.MinValue){
                     @Model.EmploymentDate.Value.ToString("dd MMMM yyyy")
                 }
-                else{}
+    
             }
-            
-            @* @Html.DisplayFor(model => model.EmploymentDate.ToString("dddd MMMM yyyy")) *@
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.HighestEducationQualification)
@@ -88,12 +91,11 @@
         </dt>
         <dd class="col-sm-9">
             @{
-                if (Model.ServiceYear.HasValue){
+                if (Model.ServiceYear.HasValue &&  Model.ServiceYear.Value == DateTime.MinValue){
                     @Model.ServiceYear.Value.ToString("dd MMMM yyyy")
                 }
-                else{}
+    
             }
-            @* @Model.ServiceYear.ToString("dd MMMM yyyy") *@
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.CompanyPosition)
@@ -106,12 +108,11 @@
         </dt>
         <dd class="col-sm-9">
             @{
-                if (Model.LastPromotionDate.HasValue){
-                    @Model.LastPromotionDate.Value.ToString("dd MMMM yyyy")
+                if (Model.ServiceYear.HasValue &&  Model.ServiceYear.Value == DateTime.MinValue){
+                    @Model.ServiceYear.Value.ToString("dd MMMM yyyy")
                 }
-                else{}
+    
             }
-            @* @Model.LastPromotionDate.ToString("dd MMMM yyyy") *@
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.YearlySalary)

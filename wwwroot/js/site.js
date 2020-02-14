@@ -37,3 +37,7 @@ $("#User_YearlySalary").on('input', function(){
     salary = parseInt(salary).toLocaleString(undefined, {minimumFractionDigits:0});
     $('#User_YearlySalary').val(salary);    
 })
+
+$("option").on("click", function(e){
+    $("#searchform").submit();
+})
