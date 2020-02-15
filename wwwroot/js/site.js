@@ -38,6 +38,6 @@ $("#User_YearlySalary").on('input', function(){
     $('#User_YearlySalary').val(salary);    
 })
 
-$("option").on("click", function(e){
+$("#active").on("change", function(){
     $("#searchform").submit();
 })
