@@ -44,8 +44,8 @@
         </dt>
         <dd class="col-sm-9">
             @{
-                if (Model.DOB.HasValue &&  Model.DOB.Value == DateTime.MinValue){
-                    @Model.DOB.Value.ToString("dd MMMM yyyy")
+                if (Model.DOB != DateTime.MinValue){
+                    @Model.DOB.ToString("dd MMMM yyyy")
                 }
     
             }
@@ -68,7 +68,7 @@
         </dt>
         <dd class="col-sm-9">
             @{
-                if (Model.EmploymentDate.HasValue &&  Model.EmploymentDate.Value == DateTime.MinValue){
+                if (Model.EmploymentDate != DateTime.MinValue){
                     @Model.EmploymentDate.Value.ToString("dd MMMM yyyy")
                 }
     
@@ -91,7 +91,7 @@
         </dt>
         <dd class="col-sm-9">
             @{
-                if (Model.ServiceYear.HasValue &&  Model.ServiceYear.Value == DateTime.MinValue){
+                if (Model.ServiceYear.HasValue &&  Model.ServiceYear != DateTime.MinValue){
                     @Model.ServiceYear.Value.ToString("dd MMMM yyyy")
                 }
     
@@ -108,8 +108,8 @@
         </dt>
         <dd class="col-sm-9">
             @{
-                if (Model.ServiceYear.HasValue &&  Model.ServiceYear.Value == DateTime.MinValue){
-                    @Model.ServiceYear.Value.ToString("dd MMMM yyyy")
+                if (Model.LastPromotionDate != DateTime.MinValue){
+                    @Model.LastPromotionDate.Value.ToString("dd MMMM yyyy")
                 }
     
             }
